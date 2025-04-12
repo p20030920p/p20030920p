@@ -1,16 +1,32 @@
-## Hi there 👋
+# Hi there! 🤖 I'm a Robotics Learner
 
-<!--
-**p20030920p/p20030920p** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## 🚀 Current Focus
+- 🌱 Learning Point Cloud Processing
+- 🤖 Exploring Multi-Robot Scheduling Techniques
 
-Here are some ideas to get you started:
+## 🔍 Technical Interests
+- Point Cloud Data Manipulation
+- Distributed Robotic Systems
+- Robotic Coordination and Scheduling Algorithms
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## 🛠️ Skills in Progress
+- Point Cloud Libraries (e.g., PCL)
+- Multi-Agent Robotic Systems
+- Algorithmic Scheduling Strategies
+
+## 💡 Learning Goals
+- Master point cloud data interpretation
+- Develop efficient multi-robot coordination techniques
+- Implement advanced scheduling algorithms
+
+## 📚 Resources I'm Exploring
+- Academic Papers on Multi-Robot Systems
+- Online Robotics Courses
+- Open-source Robotic Frameworks
+
+## 🌟 Looking to Collaborate
+- Open-source robotic projects
+- Point cloud processing research
+- Multi-robot system simulations
+
+Feel free to connect and share insights! 🤝
