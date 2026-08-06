@@ -1,32 +1,31 @@
-# Hi there! 🤖 I'm a Robotics Learner
+# Professional Profile
 
-## 🚀 Current Focus
-- 🌱 Learning Point Cloud Processing
-- 🤖 Exploring Multi-Robot Scheduling Techniques
+Robotics learner focused on autonomous navigation, point cloud processing, and multi-robot coordination. Currently developing with ROS Noetic and Gazebo Classic.
 
-## 🔍 Technical Interests
-- Point Cloud Data Manipulation
-- Distributed Robotic Systems
-- Robotic Coordination and Scheduling Algorithms
+## Technical Focus
 
-## 🛠️ Skills in Progress
-- Point Cloud Libraries (e.g., PCL)
-- Multi-Agent Robotic Systems
-- Algorithmic Scheduling Strategies
+- Mobile robot navigation: SLAM, AMCL, move_base, DWA
+- Robot vision: OpenCV-based detection and coordinate transformation
+- Point cloud processing: learning PCL
+- Multi-robot scheduling and coordination
+- AI-assisted development with a personal Markdown knowledge base
 
-## 💡 Learning Goals
-- Master point cloud data interpretation
-- Develop efficient multi-robot coordination techniques
-- Implement advanced scheduling algorithms
+## Project Experience
 
-## 📚 Resources I'm Exploring
-- Academic Papers on Multi-Robot Systems
-- Online Robotics Courses
-- Open-source Robotic Frameworks
+### ROS Noetic Omnidirectional Robot Competition Simulation
 
-## 🌟 Looking to Collaborate
-- Open-source robotic projects
-- Point cloud processing research
-- Multi-robot system simulations
+- Stack: ROS Noetic, Gazebo Classic 11, Python 3, Catkin
+- Features: holonomic chassis simulation, SLAM, AMCL, move_base, DWA, green A4 detection, vision-based goal generation, autonomous mission state machine
+- Status: validated in simulation; hardware deployment requires odometry and camera calibration
 
-Feel free to connect and share insights! 🤝
+## Current Goals
+
+- Point cloud acquisition, filtering, registration, and feature extraction
+- Multi-robot scheduling algorithm design
+- Integration of LLMs with robotic systems
+
+## Collaboration
+
+- Open-source robotics
+- Point cloud processing
+- Multi-robot simulation and scheduling
