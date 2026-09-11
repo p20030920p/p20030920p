@@ -1,6 +1,6 @@
 <h2> I'm QuanQuan 🤖</h2>
 <p><em>Robotics learner — autonomous navigation, LiDAR point clouds, and multi-robot coordination. Mostly on ROS 2 Jazzy, with ROS 1 Noetic behind it.</em></p>
-<img width="28%" align="right" alt="RViz costmap from Sim2Real-AlgoBench: the competition map with inflated obstacle layers and the planned path to the finish pad" src="./assets/sim2real-rviz.png">
+<img width="28%" align="right" alt="A raw LiDAR scan from SnowClear: scan structure in white with snow returns highlighted in red" src="./assets/pointcloud-snow.png">
 
 <div align="left">
 
@@ -20,6 +20,10 @@
 
 One fixed task, one fixed interface contract, one fixed metric set, evaluated twice: in simulation and on a physical robot. The robot gets one start signal, searches a known map for a green A4 marker on a wall, drives onto the yellow finish pad in front of it, and holds still for three seconds. No goal pose is published by hand — detection ends the run, not geometry.
 
+<p align="center">
+  <img src="./assets/sim2real-rviz.png" width="62%" alt="RViz costmap from Sim2Real-AlgoBench: the competition map with inflated obstacle layers and the planned path to the finish pad">
+</p>
+
 - **Chassis** — three-wheeled omnidirectional drive, URDF/Xacro, LiDAR, camera, `ros2_control`
 - **Localization** — SLAM Toolbox mapping, Nav2 Map Saver, AMCL against a prior grid map
 - **Planning** — safe search viewpoints from the free-space connected component, then Theta\* any-angle global planning
@@ -28,13 +32,21 @@ One fixed task, one fixed interface contract, one fixed metric set, evaluated tw
 
 *ROS 2 Jazzy · Gazebo Sim 8 · C++17 / Python*
 
-### [FleetFlow](https://github.com/p20030920p/FleetFlow) — multi-AGV material transport in a textile mill
+### [FleetFlow-ROS2](https://github.com/p20030920p/FleetFlow-ROS2) — multi-AGV material transport in a textile mill
 
-Ten AGVs move material barrels between carding, drawing and roving machines in a Gazebo factory, driven by a priority task scheduler and a per-robot `move_base` navigation stack. A live control centre reports fleet positions, machine states and per-process completion, and the repository ships a batch-experiment pipeline that turns runs into CSV data, reports and LaTeX tables.
+<p align="center">
+  <img src="./assets/fleet-scheduling.png" width="100%" alt="FleetFlow control centre: live statistics on the left, factory map on the right with six AGVs and their active transport routes">
+</p>
 
-*ROS 1 Noetic · Gazebo 11 · Python 3*
+A fleet of AGVs moves material barrels between carding, drawing and roving machines, on **ROS 2 Jazzy + Gazebo Sim 8**. A priority scheduler hands out transport work, each vehicle plans its own A\* route and follows it with pure pursuit, and a control centre reports fleet state, machine utilisation and per-stage progress. Vehicles pull work only when idle, so two AGVs never take the same job.
+
+*ROS 2 Jazzy · Gazebo Sim 8 · Python 3.12*
 
 ### SnowClear — training-free snow-point detection and removal for spinning LiDAR
+
+<p align="center">
+  <img src="./assets/pointcloud-before-after.png" width="100%" alt="A raw LiDAR scan with snow returns in red, next to the same scan de-snowed by SnowClear">
+</p>
 
 *Private repository.* Point-wise removal of snowfall noise at frame rate, on CPU only: no training, no GPU, no learned weights. One raw frame in; a de-snowed cloud plus the snow indices out, kept in the coordinate and index space of the original input cloud. Around 10 ms per frame in a Release build, with byte-for-byte regression reproducibility.
 
@@ -93,13 +105,21 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
 
 *ROS 2 Jazzy · Gazebo Sim 8 · C++17 / Python*
 
-### [FleetFlow](https://github.com/p20030920p/FleetFlow) —— 纺织厂多 AGV 物料搬运仿真
+### [FleetFlow-ROS2](https://github.com/p20030920p/FleetFlow-ROS2) —— 纺织厂多 AGV 物料搬运仿真
 
-10 台 AGV 在 Gazebo 工厂里于梳棉、拉伸、粗纱机器之间搬运物料桶，由优先级任务调度器分配运输任务，每台车跑独立的 `move_base` 导航栈。控制中心实时显示车队位置、机器状态与各工序完成度；仓库里还带一套批量实验流水线，把运行结果产出成 CSV、分析报告与 LaTeX 表格。
+<p align="center">
+  <img src="./assets/fleet-scheduling.png" width="100%" alt="FleetFlow 控制中心：左侧实时统计，右侧工厂地图与 6 台 AGV 的调度路线">
+</p>
 
-*ROS 1 Noetic · Gazebo 11 · Python 3*
+多台 AGV 在梳棉、拉伸、粗纱机器之间搬运物料桶，跑在 **ROS 2 Jazzy + Gazebo Sim 8** 上。优先级调度器派发运输任务，每台车自己规划 A\* 路径并用纯追踪跟随；控制中心实时显示车队状态、机器利用率与各工序进度。车辆只在空闲时主动拉取任务，因此不会两台车抢同一单。
+
+*ROS 2 Jazzy · Gazebo Sim 8 · Python 3.12*
 
 ### SnowClear —— 旋转式 LiDAR 的免训练雪点检测与去除
+
+<p align="center">
+  <img src="./assets/pointcloud-before-after.png" width="100%" alt="原始 LiDAR 扫描（红色为雪点回波）与 SnowClear 去雪后的同一帧对比">
+</p>
 
 *私有仓库。* 逐点去除降雪噪声，帧率级速度，纯 CPU：不训练、不用 GPU、没有任何学习权重。输入一帧原始点云，输出去雪后的点云与被判为雪点的索引，且索引仍在原始输入点云的坐标系与索引空间中。Release 构建下约 10 ms/帧，逐字节回归可复现。
 
