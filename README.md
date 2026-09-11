@@ -38,7 +38,13 @@ One fixed task, one fixed interface contract, one fixed metric set, evaluated tw
   <img src="./assets/fleet-scheduling.png" width="100%" alt="FleetFlow control centre: live statistics on the left, factory map on the right with six AGVs and their active transport routes">
 </p>
 
-A fleet of AGVs moves material barrels between carding, drawing and roving machines, on **ROS 2 Jazzy + Gazebo Sim 8**. A priority scheduler hands out transport work, each vehicle plans its own A\* route and follows it with pure pursuit, and a control centre reports fleet state, machine utilisation and per-stage progress. Vehicles pull work only when idle, so two AGVs never take the same job.
+A ROS 2 Jazzy + Gazebo Sim 8 fleet in which every AGV is a first-class robot — own namespace, own TF tree, own QoS class. Coordination is implemented rather than scripted: **dock leases** serialise access to stations and are structured so that hold-and-wait cannot arise, vehicles yield reciprocally and re-plan around moving peers, batteries drive charging trips, and a watchdog reclaims tasks from stalled vehicles.
+
+The repository also carries a reproducible study of **multi-robot task allocation** — random, nearest-neighbour and a sequential single-item auction, scored on throughput, latency and safety. Under a deep task pool the auction reaches **+37 % throughput**; under a shallow pool the three are indistinguishable, because with fewer tasks than vehicles there is nothing to allocate.
+
+<p align="center">
+  <img src="./assets/policy-comparison.png" width="100%" alt="Throughput, latency, travel per task and near-miss events for the three allocation policies, under a shallow and a deep task pool">
+</p>
 
 *ROS 2 Jazzy · Gazebo Sim 8 · Python 3.12*
 
@@ -111,7 +117,13 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
   <img src="./assets/fleet-scheduling.png" width="100%" alt="FleetFlow 控制中心：左侧实时统计，右侧工厂地图与 6 台 AGV 的调度路线">
 </p>
 
-多台 AGV 在梳棉、拉伸、粗纱机器之间搬运物料桶，跑在 **ROS 2 Jazzy + Gazebo Sim 8** 上。优先级调度器派发运输任务，每台车自己规划 A\* 路径并用纯追踪跟随；控制中心实时显示车队状态、机器利用率与各工序进度。车辆只在空闲时主动拉取任务，因此不会两台车抢同一单。
+跑在 ROS 2 Jazzy + Gazebo Sim 8 上的多机车队：每台 AGV 都是完整的一等机器人 —— 独立命名空间、独立 TF 树、按数据类别划分的 QoS。协同是**实现出来的而不是脚本化的**：**工位租约**把停靠串行化，并从结构上排除 hold-and-wait；车辆互相避让并绕开移动中的同伴重规划；电量驱动充电行程；看门狗回收卡死车辆的任务。
+
+仓库里还带一组**可复现的多机器人任务分配（MRTA）研究** —— 随机、最近邻与顺序单件拍卖三种策略，按吞吐、时延与安全性评估。深任务池下拍卖策略吞吐**高出 37%**；浅任务池下三者无法区分 —— 因为待办任务比车还少时，根本没有什么可分配的。
+
+<p align="center">
+  <img src="./assets/policy-comparison.png" width="100%" alt="三种分配策略在浅任务池与深任务池下的吞吐、时延、每单行驶距离与近距事件对比">
+</p>
 
 *ROS 2 Jazzy · Gazebo Sim 8 · Python 3.12*
 
