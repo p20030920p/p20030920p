@@ -53,10 +53,10 @@ The finding is conditional, and I think that is the useful part: **allocation po
 ### SnowClear — training-free snow-point detection and removal for spinning LiDAR
 
 <p align="center">
-  <img src="./assets/pointcloud-before-after.png" width="100%" alt="A raw LiDAR scan with snow returns in red, next to the same scan de-snowed by SnowClear">
+  <img src="./assets/snowclear-detection.png" width="100%" alt="A LiDAR scan in 3D perspective coloured by detection outcome: grey structure, green detected snow, blue missed snow, red false positives">
 </p>
 
-*Private repository.* Point-wise removal of snowfall noise at frame rate, on CPU only: no training, no GPU, no learned weights. One raw frame in; a de-snowed cloud plus the snow indices out, kept in the coordinate and index space of the original input cloud. Around 10 ms per frame in a Release build, with byte-for-byte regression reproducibility.
+*Private repository.* Point-wise removal of snowfall noise at frame rate, on CPU only: no training, no GPU, no learned weights. One raw frame in; a de-snowed cloud plus the snow indices out, kept in the coordinate and index space of the original input cloud. Around 10 ms per frame in a Release build, with byte-for-byte regression reproducibility — macro precision / recall / F1 **96.69 / 89.98 / 92.82** over the 16 released scenes.
 
 *ROS 2 Jazzy · C++17 · PCL*
 
@@ -134,10 +134,10 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
 ### SnowClear —— 旋转式 LiDAR 的免训练雪点检测与去除
 
 <p align="center">
-  <img src="./assets/pointcloud-before-after.png" width="100%" alt="原始 LiDAR 扫描（红色为雪点回波）与 SnowClear 去雪后的同一帧对比">
+  <img src="./assets/snowclear-detection.png" width="100%" alt="LiDAR 扫描的三维透视图，按检测结果着色：灰色为结构，绿色为检出雪点，蓝色为漏检，红色为误检">
 </p>
 
-*私有仓库。* 逐点去除降雪噪声，帧率级速度，纯 CPU：不训练、不用 GPU、没有任何学习权重。输入一帧原始点云，输出去雪后的点云与被判为雪点的索引，且索引仍在原始输入点云的坐标系与索引空间中。Release 构建下约 10 ms/帧，逐字节回归可复现。
+*私有仓库。* 逐点去除降雪噪声，帧率级速度，纯 CPU：不训练、不用 GPU、没有任何学习权重。输入一帧原始点云，输出去雪后的点云与被判为雪点的索引，且索引仍在原始输入点云的坐标系与索引空间中。Release 构建下约 10 ms/帧，逐字节回归可复现；16 个场景上的宏观精确率 / 召回率 / F1 为 **96.69 / 89.98 / 92.82**。
 
 *ROS 2 Jazzy · C++17 · PCL*
 
