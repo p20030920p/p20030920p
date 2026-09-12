@@ -54,9 +54,10 @@ The finding is conditional, and I think that is the useful part: **allocation po
 
 <p align="center">
   <img src="./assets/snowclear-detection.png" width="100%" alt="A LiDAR scan in 3D perspective coloured by detection outcome: grey structure, green detected snow, blue missed snow, red false positives">
+  <img src="./assets/snowclear-baselines.png" width="100%" alt="One frame, five detectors: ground truth, then SnowClear, DROR, DSOR, SOR and ROR, each coloured by detected, missed and false-positive points">
 </p>
 
-*Private repository.* Point-wise removal of snowfall noise at frame rate, on CPU only: no training, no GPU, no learned weights. One raw frame in; a de-snowed cloud plus the snow indices out, kept in the coordinate and index space of the original input cloud. Around 10 ms per frame in a Release build, with byte-for-byte regression reproducibility — macro precision / recall / F1 **96.69 / 89.98 / 92.82** over the 16 released scenes.
+*Private repository.* Point-wise removal of snowfall noise at frame rate, on CPU only: no training, no GPU, no learned weights. One raw frame in; a de-snowed cloud plus the snow indices out, kept in the coordinate and index space of the original input cloud. Around 10 ms per frame in a Release build, with byte-for-byte regression reproducibility — macro precision / recall / F1 **96.69 / 89.98 / 92.82** over the 16 released scenes — **2.4× the F1 of the best non-learned baseline** on the same 1 620 frames (SOR 37.93, DSOR 7.36, DROR 6.80, ROR 1.76) and two orders of magnitude faster than the radius-based ones.
 
 *ROS 2 Jazzy · C++17 · PCL*
 
@@ -135,9 +136,10 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
 
 <p align="center">
   <img src="./assets/snowclear-detection.png" width="100%" alt="LiDAR 扫描的三维透视图，按检测结果着色：灰色为结构，绿色为检出雪点，蓝色为漏检，红色为误检">
+  <img src="./assets/snowclear-baselines.png" width="100%" alt="同一帧、五种检测器：真值标注，以及 SnowClear、DROR、DSOR、SOR、ROR 的检出 / 漏检 / 误检着色结果">
 </p>
 
-*私有仓库。* 逐点去除降雪噪声，帧率级速度，纯 CPU：不训练、不用 GPU、没有任何学习权重。输入一帧原始点云，输出去雪后的点云与被判为雪点的索引，且索引仍在原始输入点云的坐标系与索引空间中。Release 构建下约 10 ms/帧，逐字节回归可复现；16 个场景上的宏观精确率 / 召回率 / F1 为 **96.69 / 89.98 / 92.82**。
+*私有仓库。* 逐点去除降雪噪声，帧率级速度，纯 CPU：不训练、不用 GPU、没有任何学习权重。输入一帧原始点云，输出去雪后的点云与被判为雪点的索引，且索引仍在原始输入点云的坐标系与索引空间中。Release 构建下约 10 ms/帧，逐字节回归可复现；16 个场景上的宏观精确率 / 召回率 / F1 为 **96.69 / 89.98 / 92.82**，是同一批 1 620 帧上**最好的非学习基线 F1 的 2.4 倍**（SOR 37.93、DSOR 7.36、DROR 6.80、ROR 1.76），且比基于半径的两者快两个数量级。
 
 *ROS 2 Jazzy · C++17 · PCL*
 
