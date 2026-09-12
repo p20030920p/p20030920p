@@ -35,15 +35,17 @@ One fixed task, one fixed interface contract, one fixed metric set, evaluated tw
 ### [FleetFlow-ROS2](https://github.com/p20030920p/FleetFlow-ROS2) — multi-AGV material transport in a textile mill
 
 <p align="center">
-  <img src="./assets/fleet-scheduling.png" width="100%" alt="FleetFlow control centre: live statistics on the left, factory map on the right with six AGVs and their active transport routes">
+  <img src="./assets/fleet-scheduling.png" width="100%" alt="FleetFlow production Andon board: KPI band, material-flow strip, engineering-drawing floor plan with AGVs and dock slots, machine utilisation, machine status and a vehicle roster">
 </p>
 
 A ROS 2 Jazzy + Gazebo Sim 8 fleet in which every AGV is a first-class robot — own namespace, own TF tree, own QoS class. Coordination is implemented rather than scripted: **dock leases** serialise access to stations and are structured so that hold-and-wait cannot arise, vehicles yield reciprocally and re-plan around moving peers, batteries drive charging trips, and a watchdog reclaims tasks from stalled vehicles.
 
-The repository also carries a reproducible study of **multi-robot task allocation** — random, nearest-neighbour and a sequential single-item auction, scored on throughput, latency and safety. Under a deep task pool the auction reaches **+37 % throughput**; under a shallow pool the three are indistinguishable, because with fewer tasks than vehicles there is nothing to allocate.
+The repository also carries a reproducible study of **multi-robot task allocation**. Five policies are scored on throughput, latency, travel per task and safety: random dispatch, nearest-neighbour, the standard distance-only sequential auction, **CA-SSI** — the same auction over a six-term industrial cost (deadhead, laden travel, dock contention, energy feasibility, load balance, task ageing) — and the Hungarian single-round optimum.
+
+The finding is conditional, and I think that is the useful part: **allocation policy only matters when the fleet is the binding constraint.** With an over-provisioned fleet all five land within run-to-run noise — there is nothing to allocate, so nothing to win. When the fleet is saturated instead, CA-SSI delivers **+18 % throughput** over random dispatch and **10 % fewer metres per delivered task** than the distance-only auction it improves on, with the lowest mean task latency of the five. And the *mathematically optimal* single-round assignment still loses to it, because an optimal assignment is not the same thing as an optimal system.
 
 <p align="center">
-  <img src="./assets/policy-comparison.png" width="100%" alt="Throughput, latency, travel per task and near-miss events for the three allocation policies, under a shallow and a deep task pool">
+  <img src="./assets/policy-comparison.png" width="100%" alt="Throughput, latency, travel per task and utilisation for five allocation policies, under a small and a large fleet">
 </p>
 
 *ROS 2 Jazzy · Gazebo Sim 8 · Python 3.12*
@@ -114,15 +116,17 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
 ### [FleetFlow-ROS2](https://github.com/p20030920p/FleetFlow-ROS2) —— 纺织厂多 AGV 物料搬运仿真
 
 <p align="center">
-  <img src="./assets/fleet-scheduling.png" width="100%" alt="FleetFlow 控制中心：左侧实时统计，右侧工厂地图与 6 台 AGV 的调度路线">
+  <img src="./assets/fleet-scheduling.png" width="100%" alt="FleetFlow 生产调度看板：KPI 带、物料流转条、工程制图风格的车间平面图（含 AGV 与停靠位）、设备利用率、机台状态与车辆状态表">
 </p>
 
 跑在 ROS 2 Jazzy + Gazebo Sim 8 上的多机车队：每台 AGV 都是完整的一等机器人 —— 独立命名空间、独立 TF 树、按数据类别划分的 QoS。协同是**实现出来的而不是脚本化的**：**工位租约**把停靠串行化，并从结构上排除 hold-and-wait；车辆互相避让并绕开移动中的同伴重规划；电量驱动充电行程；看门狗回收卡死车辆的任务。
 
-仓库里还带一组**可复现的多机器人任务分配（MRTA）研究** —— 随机、最近邻与顺序单件拍卖三种策略，按吞吐、时延与安全性评估。深任务池下拍卖策略吞吐**高出 37%**；浅任务池下三者无法区分 —— 因为待办任务比车还少时，根本没有什么可分配的。
+仓库里还带一组**可复现的多机器人任务分配（MRTA）研究**。五种策略按吞吐、时延、单任务里程与安全性打分：随机派单、最近邻、文献里标准的只认距离的顺序拍卖、**CA-SSI**（同一套拍卖，换成六项工业代价：空驶、载货、工位拥塞、电量可达、负载均衡、任务老化），以及匈牙利单轮最优解。
+
+结论是一个条件句，我认为这才是有价值的部分：**只有当车队成为瓶颈时，分配策略才起作用。** 运力富裕时五种策略全部落在运行噪声里 —— 没有可分配的东西，也就没有可赢的东西。而当车队满负荷时，CA-SSI 相对随机派单吞吐 **+18%**，相对它所改进的"只认距离"拍卖**单任务里程少 10%**，平均时延在五种里最低。同时，**数学上单轮最优**的指派依然输给它 —— 最优的分配方案不等于最优的系统。
 
 <p align="center">
-  <img src="./assets/policy-comparison.png" width="100%" alt="三种分配策略在浅任务池与深任务池下的吞吐、时延、每单行驶距离与近距事件对比">
+  <img src="./assets/policy-comparison.png" width="100%" alt="五种分配策略在小车队与大队列下的吞吐、时延、单任务里程与利用率对比">
 </p>
 
 *ROS 2 Jazzy · Gazebo Sim 8 · Python 3.12*
