@@ -54,10 +54,11 @@ The finding is conditional, and I think that is the useful part: **allocation po
 
 <p align="center">
   <img src="./assets/snowclear-desnow.gif" width="100%" alt="Six panels per frame: raw scan, de-snowed cloud and detection result, for SnowClear on top and the ground truth below">
-  <img src="./assets/snowclear-baselines.png" width="100%" alt="One frame, five detectors: ground truth, then SnowClear, DROR, DSOR, SOR and ROR, each coloured by detected, missed and false-positive points">
+  <img src="./assets/snowclear-baselines.png" width="100%" alt="One frame, seven methods in bird's-eye view: ground truth, SnowClear, CRFOR, DROR, DSOR, SOR and ROR, each coloured by detected, missed and false-positive points, with an in-ROI scoreboard">
+  <img src="./assets/snowclear-budget.png" width="100%" alt="Where the ground truth goes: one stacked bar per scene showing the share reached by the decision, outside the ROI gate, above the intensity ceiling and vetoed">
 </p>
 
-*Private repository.* Point-wise removal of snowfall noise at frame rate, on CPU only: no training, no GPU, no learned weights. One raw frame in; a de-snowed cloud plus the snow indices out, kept in the coordinate and index space of the original input cloud. Around 10 ms per frame in a Release build, with byte-for-byte regression reproducibility — macro precision / recall / F1 **96.69 / 89.98 / 92.82** over the 16 released scenes — **2.4× the F1 of the best non-learned baseline** on the same 1 620 frames (SOR 37.93, DSOR 7.36, DROR 6.80, ROR 1.76) and two orders of magnitude faster than the radius-based ones. Re-mounting the sensor 0.9 m higher costs the released constants 24 pp of F1; the label-free self-calibration recovers all but 0.06 pp.
+*Private repository.* Point-wise removal of snowfall noise at frame rate, on CPU only: no training, no GPU, no learned weights. One raw frame in; a de-snowed cloud plus the snow indices out, kept in the coordinate and index space of the original input cloud. Around 10 ms per frame in a Release build, with byte-for-byte regression reproducibility — macro precision / recall / F1 **96.69 / 89.98 / 92.82** over the 16 released scenes — **2.4× the F1 of the best non-learned baseline** on the same 1 620 frames (SOR 37.93, DSOR 7.36, DROR 6.80, ROR 1.76) and two orders of magnitude faster than the radius-based ones. On the same 101 frames of one scene it scores F1 96.90 against 96.41 for CRFOR (Wang et al., RA-L 2023) at 9 ms/frame versus 17 132 ms. Re-mounting the sensor 0.9 m higher costs the released constants 24 pp of F1; the label-free self-calibration recovers all but 0.06 pp.
 
 *ROS 2 Jazzy · C++17 · PCL*
 
@@ -136,10 +137,11 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
 
 <p align="center">
   <img src="./assets/snowclear-desnow.gif" width="100%" alt="每帧六面板：原始点云、去雪后点云与检测结果，上排为 SnowClear、下排为真值">
-  <img src="./assets/snowclear-baselines.png" width="100%" alt="同一帧、五种检测器：真值标注，以及 SnowClear、DROR、DSOR、SOR、ROR 的检出 / 漏检 / 误检着色结果">
+  <img src="./assets/snowclear-baselines.png" width="100%" alt="同一帧、七种方法的鸟瞰对比：真值、SnowClear、CRFOR、DROR、DSOR、SOR、ROR，各自按检出 / 漏检 / 误检着色，并附 ROI 内得分板">
+  <img src="./assets/snowclear-budget.png" width="100%" alt="真值去了哪里：逐场景堆叠条，分别为通过判定检出、落在 ROI 之外、高于强度上限与被否决">
 </p>
 
-*私有仓库。* 逐点去除降雪噪声，帧率级速度，纯 CPU：不训练、不用 GPU、没有任何学习权重。输入一帧原始点云，输出去雪后的点云与被判为雪点的索引，且索引仍在原始输入点云的坐标系与索引空间中。Release 构建下约 10 ms/帧，逐字节回归可复现；16 个场景上的宏观精确率 / 召回率 / F1 为 **96.69 / 89.98 / 92.82**，是同一批 1 620 帧上**最好的非学习基线 F1 的 2.4 倍**（SOR 37.93、DSOR 7.36、DROR 6.80、ROR 1.76），且比基于半径的两者快两个数量级。安装高度抬高 0.9 m 会让发布常量丢掉 24 pp 的 F1，而无标注自标定只差 0.06 pp。
+*私有仓库。* 逐点去除降雪噪声，帧率级速度，纯 CPU：不训练、不用 GPU、没有任何学习权重。输入一帧原始点云，输出去雪后的点云与被判为雪点的索引，且索引仍在原始输入点云的坐标系与索引空间中。Release 构建下约 10 ms/帧，逐字节回归可复现；16 个场景上的宏观精确率 / 召回率 / F1 为 **96.69 / 89.98 / 92.82**，是同一批 1 620 帧上**最好的非学习基线 F1 的 2.4 倍**（SOR 37.93、DSOR 7.36、DROR 6.80、ROR 1.76），且比基于半径的两者快两个数量级。在同一场景的同一批 101 帧上，F1 96.90 对 CRFOR（Wang et al., RA-L 2023）的 96.41，单帧耗时 9 ms 对 17 132 ms。安装高度抬高 0.9 m 会让发布常量丢掉 24 pp 的 F1，而无标注自标定只差 0.06 pp。
 
 *ROS 2 Jazzy · C++17 · PCL*
 
