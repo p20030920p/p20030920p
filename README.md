@@ -91,18 +91,6 @@ The finding is conditional, and I think that is the useful part: **allocation po
 - **Snow_point** — the ROS 1 Noetic line of SnowClear: real-time, training-free, CPU-only LiDAR snow detection and removal.
 - **Omnidirectional robot competition simulation** — three-wheeled omnidirectional chassis in Gazebo Classic 11 with SLAM, AMCL, `move_base`, DWA, green A4 detection, and an autonomous mission state machine. Validated in simulation; physical deployment still needs drive, odometry, and camera calibration work.
 
-## Other repositories
-
-| Repository | Language |
-| --- | --- |
-| [Mobile-Manupulator-Simulation-Test](https://github.com/p20030920p/Mobile-Manupulator-Simulation-Test) | Python |
-| [Multi-RobotScheduling](https://github.com/p20030920p/Multi-RobotScheduling) | Python |
-| [Factor_Simulation](https://github.com/p20030920p/Factor_Simulation) | Python |
-| [Multy_Robot](https://github.com/p20030920p/Multy_Robot) | — |
-| [RAS_CBS](https://github.com/p20030920p/RAS_CBS) | — |
-| [RoboticManipulatorTest](https://github.com/p20030920p/RoboticManipulatorTest) | MATLAB |
-| [ITMO-Summer-School-08.2025](https://github.com/p20030920p/ITMO-Summer-School-08.2025) | MATLAB |
-| [Choose_wang](https://github.com/p20030920p/Choose_wang) | HTML |
 
 ## Working together
 
@@ -191,11 +179,6 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
 
 *ROS 2 Jazzy · Gazebo Sim 8 · Python 3.12*
 
-### 早前工作
-
-- **SLAM** —— ROS 2 Jazzy + Gazebo Harmonic + `ros2_control` + Slam Toolbox + 自定义 Nav2 A\* 全局规划器，配三层 `ros2_control` 架构与脚本化冒烟测试。*私有仓库。*
-- **Snow_point** —— SnowClear 的 ROS 1 Noetic 版本：实时、免训练、CPU-only 的 LiDAR 雪点检测与去除。
-- **全向机器人竞赛仿真** —— Gazebo Classic 11 中的三轮全向底盘，含激光建图、AMCL、`move_base`、DWA、绿色 A4 识别与自动任务状态机。仿真已验证；装到实车仍需完成底盘驱动、里程计与相机内参标定。
 
 ## 合作
 
