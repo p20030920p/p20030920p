@@ -53,6 +53,7 @@ The finding is conditional, and I think that is the useful part: **allocation po
 ### SnowClear — training-free snow-point detection and removal for spinning LiDAR
 
 <p align="center">
+  <img src="./assets/snowclear-desnow.gif" width="100%" alt="Six panels per frame: raw scan, de-snowed cloud and detection result, for SnowClear on top and the ground truth below">
   <img src="./assets/snowclear-detection.png" width="100%" alt="A LiDAR scan in 3D perspective coloured by detection outcome: grey structure, green detected snow, blue missed snow, red false positives">
   <img src="./assets/snowclear-baselines.png" width="100%" alt="One frame, five detectors: ground truth, then SnowClear, DROR, DSOR, SOR and ROR, each coloured by detected, missed and false-positive points">
 </p>
@@ -135,6 +136,7 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
 ### SnowClear —— 旋转式 LiDAR 的免训练雪点检测与去除
 
 <p align="center">
+  <img src="./assets/snowclear-desnow.gif" width="100%" alt="每帧六面板：原始点云、去雪后点云与检测结果，上排为 SnowClear、下排为真值">
   <img src="./assets/snowclear-detection.png" width="100%" alt="LiDAR 扫描的三维透视图，按检测结果着色：灰色为结构，绿色为检出雪点，蓝色为漏检，红色为误检">
   <img src="./assets/snowclear-baselines.png" width="100%" alt="同一帧、五种检测器：真值标注，以及 SnowClear、DROR、DSOR、SOR、ROR 的检出 / 漏检 / 误检着色结果">
 </p>
