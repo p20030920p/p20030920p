@@ -55,6 +55,7 @@ The finding is conditional, and I think that is the useful part: **allocation po
 <p align="center">
   <img src="./assets/snowclear-desnow.gif" width="100%" alt="Six panels per frame: raw scan, de-snowed cloud and detection result, for SnowClear on top and the ground truth below">
   <img src="./assets/snowclear-baselines.png" width="100%" alt="One frame, seven methods in bird's-eye view: ground truth, SnowClear, CRFOR, DROR, DSOR, SOR and ROR, each coloured by detected, missed and false-positive points, with an in-ROI scoreboard">
+  <img src="./assets/snowclear-scores.png" width="100%" alt="Precision, recall and F1 per method on scene 35, with frame time under each name">
   <img src="./assets/snowclear-budget.png" width="100%" alt="Where the ground truth goes: one stacked bar per scene showing the share reached by the decision, outside the ROI gate, above the intensity ceiling and vetoed">
 </p>
 
