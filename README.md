@@ -31,6 +31,10 @@ with Gazebo.
 
 ROS 2 driver and control stack for a 6-axis Damiao-motor arm, with a camera and ArUco-based picking.
 
+<h2>我是 QuanQuan 🤖</h2>
+
+机器人方向：ROS 2、自主导航、LiDAR 点云、多机器人调度。
+
 ## 项目
 
 ### SnowClear —— 旋转式 LiDAR 免训练去雪
