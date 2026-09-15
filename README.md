@@ -55,28 +55,21 @@ One fixed task, one fixed interface contract, one fixed metric set, evaluated tw
 
 *ROS 2 Jazzy · Gazebo Sim 8 · C++17 / Python*
 
-### Damiao_ARM — a 6-DOF arm moved from ROS 1 Noetic to ROS 2 Jazzy
+### [miku-arm-ros2](https://github.com/p20030920p/miku-arm-ros2) — 6-axis Damiao-motor arm with a gripper, on ROS 2 Jazzy
 
 <p align="center">
-  <img src="./assets/arm-teach-pose.png" width="100%" alt="The Damiao_ARM 6-DOF arm rendered from its own URDF and STL meshes, joints J1 to J6 labelled with leader lines, at a pose taken from a recorded teach trajectory — brushed aluminium links and a two-jaw claw on a dark technical grid, with the pose vector and the verified forward-kinematics result printed below">
+  <img src="https://raw.githubusercontent.com/p20030920p/miku-arm-ros2/main/docs/figures/demo.gif" width="100%" alt="A recorded teach trajectory replayed on the simulated arm: the URDF mesh sweeping through the taught path, driven at 100 Hz for 50 seconds">
 </p>
 
-A third-party ROS 1 Noetic arm — six revolute joints plus a two-jaw claw, driven by a DAMIAO motor board over USB serial — ported whole to ROS 2 Jazzy and built from scratch on a machine that cannot run Noetic at all. The control loop never went through `ros2_control`: the stack does its own KDL kinematics and Cartesian straight-line interpolation, streams `ArmMsg` frames down a 50-byte serial link, and reads 46 bytes back, so the port is a rewrite of the plumbing rather than of the control law.
+Six Damiao motors and a gripper on one MCU board, driven over `/dev/ttyACM0` at 115200 with a 50-byte down / 46-byte up binary protocol. The controller runs its own KDL forward and inverse kinematics and straight-line interpolation and commands the motors in MIT mode — no MoveIt, no `ros2_control` — so the whole stack closes in simulation with no hardware attached.
 
-- **Control** — KDL chain kinematics with iterative IK, straight-line Cartesian planning, a gravity-compensation mode that drops `kp` to zero so the arm can be hand-guided, and a claw state machine on joint 7
-- **Teaching** — 38 610 points of trajectory recorded from the real arm, replayed back through the same node that wrote them
-- **Perception** — ArUco detection with its own C++ detector, plus RealSense D435 colour and aligned-depth streams for the vision-guided grasp path
-- **Serial protocol** — the vendor framing (`0x86C1`/`0x86C2` headers, 50 B down / 46 B up, ×1000 fixed-point fields) and its MIT and position modes, decoded in-tree
+- **Control** — KDL FK/IK, straight-line Cartesian interpolation, six-channel gravity compensation, 4-state gripper FSM
+- **Modes** — `mode=1` MIT (stiffness, damping, torque feed-forward) · `mode=2` velocity-limited position
+- **Teaching** — hand-guided at `kp=0`, recorded to a file, replayed through the same node
+- **Perception** — ArUco detection and RealSense RGB-D on the vision-guided grasp path
+- **No hardware needed** — simulated motors plus a protocol-level driver-board peer behind a `socat` PTY, so the real `hardware` binary is what gets tested
 
-The part I could actually verify without touching the robot is the part that normally needs the robot: a virtual motor board that implements the *other* end of the vendor protocol, so the real `hardware` node — its logic untouched, only the port moved to a parameter — runs against simulated motors complete with gravity load and a claw that hits an object. A second path feeds the real control nodes through that board and publishes `/joint_states` into RViz. **7/7 hardware-in-the-loop cases pass, and 6/6 end-to-end simulation cases pass on three consecutive runs** — joint tracking to under 0.002 rad, gravity droop of −0.056 rad corrected to 0.0 by MIT-mode feed-forward, and a 7 325-point recorded trajectory replayed at 100 Hz.
-
-- **`serial` had no Jazzy package** — a POSIX termios drop-in with the same `Serial` / `Timeout` / `IOException` semantics, no extra dependency
-- **MoveIt was a phantom dependency** — declared and never called, so it was dropped; the MoveIt 2 config travels as an optional package, off the hot path
-- **`deep_camera` included `aruco`'s source directly** — replaced by a shim header so the two packages build independently
-
-The port also had to fix what it inherited: `IOException` is a `SerialException`, so the original catch order made the reconnect handler unreachable; the ArUco node read its "remove marker" parameter into the wrong variable; and the URDF pointed at meshes that were never shipped. Builds clean as 7 packages and 21 executables, FK verified at `x=0.438, y=0.087, z=0.387`, IK converging in both the HIL and end-to-end harnesses.
-
-*Repository not published yet.* No real DAMIAO board and no physical RealSense on this machine, so the vendor protocol is verified byte-for-byte against a faithful emulator rather than against hardware, and the physical motor response is still unconfirmed.
+**7/7 serial-protocol checks and 6/6 control-pipeline checks pass**: joint setpoints accurate to under 0.002 rad, gravity droop cancelled by torque feed-forward, the gripper stalling on contact, a 7 325-point recorded trajectory replaying at 100 Hz, and the node surviving the board being unplugged mid-run.
 
 *ROS 2 Jazzy · C++17 · KDL · OpenCV ArUco*
 
@@ -164,28 +157,21 @@ Open to collaboration on open-source robotics, point cloud processing, and multi
 
 *ROS 2 Jazzy · Gazebo Sim 8 · C++17 / Python*
 
-### Damiao_ARM —— 六轴机械臂从 ROS 1 Noetic 迁移到 ROS 2 Jazzy
+### [miku-arm-ros2](https://github.com/p20030920p/miku-arm-ros2) —— 达妙电机六轴机械臂（含夹爪），ROS 2 Jazzy
 
 <p align="center">
-  <img src="./assets/arm-teach-pose.png" width="100%" alt="用 Damiao_ARM 自己的 URDF 与 STL 网格渲染出的六轴机械臂：J1 到 J6 以引线标注，姿态取自真实录制的示教轨迹 —— 铝合金连杆与两指夹爪置于深色工程网格上，下方印有姿态向量与实测正运动学结果">
+  <img src="https://raw.githubusercontent.com/p20030920p/miku-arm-ros2/main/docs/figures/demo.gif" width="100%" alt="录制的示教轨迹在仿真机械臂上回放：URDF 网格沿示教路径连续运动，100 Hz、50 秒">
 </p>
 
-一套第三方 ROS 1 Noetic 机械臂 —— 六个旋转关节加一个两指夹爪，由达妙驱动板经 USB 串口驱动 —— 在完全跑不了 Noetic 的机器上整体移植到 ROS 2 Jazzy 并从零构建通过。控制回路从来没有走过 `ros2_control`：这套栈自己做 KDL 运动学与笛卡尔直线插值，把 `ArmMsg` 帧沿 50 字节串口下行、46 字节回读，所以移植重写的是管路，而不是控制律。
+六个达妙电机加一个夹爪挂在同一块 MCU 驱动板上，经 `/dev/ttyACM0` 以 115200、「下行 50 字节 / 上行 46 字节」的二进制协议通信。控制器自己跑 KDL 正逆运动学与直线插补，以 MIT 模式下发电机指令 —— 不经过 MoveIt，也不经过 `ros2_control` —— 因此整条链路在没有实机的情况下也能在仿真里闭环。
 
-- **控制** —— KDL 链式运动学与迭代 IK、笛卡尔直线规划、把 `kp` 压到 0 以便手拖的重力补偿模式，以及挂在第 7 轴上的夹爪状态机
-- **示教** —— 38 610 个点来自真机录制的轨迹，并由当初写它的同一个节点复现回去
-- **感知** —— 自带 C++ 检测库的 ArUco 识别，加上 RealSense D435 彩色流与对齐深度流，构成视觉引导抓取路径
-- **串口协议** —— 厂商帧格式（`0x86C1`/`0x86C2` 帧头、下行 50 B / 上行 46 B、×1000 定点字段）及其 MIT 与位置两种模式，全部在仓库内解码
+- **控制** —— KDL 正逆解、直线插补、六通道重力补偿、四态夹爪状态机
+- **模式** —— `mode=1` MIT（刚度、阻尼、力矩前馈）· `mode=2` 限速位置控制
+- **示教** —— `kp=0` 手动拖动，录制到文件，再由同一个节点复现
+- **感知** —— ArUco 识别与 RealSense RGB-D，构成视觉引导抓取路径
+- **无需实机** —— 仿真电机，外加一个跑在 `socat` PTY 背后的协议级虚拟驱动板，被测对象是真实的 `hardware` 二进制
 
-真正能验证的部分，恰好是平时必须有实机才能验证的那部分：一块虚拟驱动板实现了厂商协议的**另一端**，于是**真 `hardware` 节点本身逻辑未改、只把串口改为参数**，就能对着带重力负载、夹爪会顶住物体的模拟电机跑起来。第二条链路则让真实控制节点穿过这块板子，把 `/joint_states` 发布进 RViz。**串口硬件在环 7/7 用例通过，仿真端到端 6/6 用例通过且连续三次稳定** —— 关节跟随误差小于 0.002 rad，重力下沉 −0.056 rad 被 MIT 模式前馈补偿回 0.0，7 325 点的真实示教轨迹以 100 Hz 复现。
-
-- **`serial` 在 Jazzy 上没有包** —— 自写 POSIX termios 兼容实现，`Serial` / `Timeout` / `IOException` 语义一致，且不引入任何额外依赖
-- **MoveIt 是幽灵依赖** —— 声明了却从未被调用，于是移除；MoveIt 2 配置以可选包形式保留，不在热路径上
-- **`deep_camera` 直接包含 `aruco` 源码** —— 改为垫片头文件，两个包各自独立编译
-
-移植过程还得顺手修掉继承来的毛病：`IOException` 继承自 `SerialException`，所以原来的 catch 顺序让重连分支永远不可达；ArUco 节点把「移除标记」参数读进了错误的变量；URDF 指向了根本没随包发布的网格。最终 7 个包、21 个可执行文件全部构建通过，正运动学实测 `x=0.438, y=0.087, z=0.387`，IK 在 HIL 与端到端两套测试里都收敛。
-
-*仓库尚未发布。* 本机没有真实达妙驱动板，也没有实体 RealSense，所以厂商协议是逐字节对着忠实模拟器验证的，而不是对着硬件；电机的物理响应仍待确认。
+**串口协议 7/7 项、控制链路 6/6 项全部通过**：关节定位精度优于 0.002 rad，重力下垂被力矩前馈抵消，夹爪接触后卡住，7 325 点录制轨迹以 100 Hz 复现，运行中拔掉驱动板节点不退出。
 
 *ROS 2 Jazzy · C++17 · KDL · OpenCV ArUco*
 
