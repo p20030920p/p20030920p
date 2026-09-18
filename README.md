@@ -20,13 +20,6 @@ Gazebo: AMCL on a saved map, Nav2 planning and following search viewpoints, gree
 and the finish-pad approach. The clip is Gazebo next to RViz, so both what the robot did and what the
 navigation stack planned are visible. Nominal and stress worlds included.
 
-### [FleetFlow-ROS2](https://github.com/p20030920p/FleetFlow-ROS2) — multi-AGV material transport
-
-![Fleet simulation and production board](assets/fleetflow.gif)
-
-Scheduling, traffic control and a live production board for a multi-AGV textile mill, ROS 2 Jazzy
-with Gazebo.
-
 ### [miku-arm-ros2](https://github.com/p20030920p/miku-arm-ros2) — 6-axis arm control
 
 ![Arm demo](assets/miku-arm.gif)
@@ -51,12 +44,6 @@ ROS 2 driver and control stack for a 6-axis Damiao-motor arm, with a camera and 
 
 一次启动信号后全自主：AMCL 在已有地图上定位、Nav2 规划并跟随搜索视点、识别绿色标志并驶入终点区。
 录像左为 Gazebo、右为 RViz，机器人做了什么与导航栈规划了什么同时可见。含标称世界与压力世界。
-
-### [FleetFlow-ROS2](https://github.com/p20030920p/FleetFlow-ROS2) —— 多 AGV 物料搬运
-
-![车队仿真与生产看板](assets/fleetflow.gif)
-
-纺织厂多 AGV 的调度、交通管制与实时生产看板，ROS 2 Jazzy + Gazebo。
 
 ### [miku-arm-ros2](https://github.com/p20030920p/miku-arm-ros2) —— 六轴机械臂控制
 
