@@ -18,7 +18,8 @@ no learned weights.
 One start signal then full autonomy for a three-wheeled omnidirectional robot in ROS 2 Jazzy with
 Gazebo: AMCL on a saved map, Nav2 planning and following search viewpoints, green-marker detection
 and the finish-pad approach. The clip is Gazebo next to RViz, so both what the robot did and what the
-navigation stack planned are visible. Nominal and stress worlds included.
+navigation stack planned are visible. Besides the nominal arena, the same stack runs a
+dynamic-obstacle world with two moving obstacles.
 
 ### [miku-arm-ros2](https://github.com/p20030920p/miku-arm-ros2) — 6-axis arm control
 
@@ -43,7 +44,7 @@ ROS 2 driver and control stack for a 6-axis Damiao-motor arm, with a camera and 
 ![自主运行：左为 Gazebo，右为 RViz 中的导航栈](assets/sim2real.gif)
 
 一次启动信号后全自主：AMCL 在已有地图上定位、Nav2 规划并跟随搜索视点、识别绿色标志并驶入终点区。
-录像左为 Gazebo、右为 RViz，机器人做了什么与导航栈规划了什么同时可见。含标称世界与压力世界。
+录像左为 Gazebo、右为 RViz，机器人做了什么与导航栈规划了什么同时可见。除标称场地外，同一套栈还可运行带两个移动障碍的动态障碍世界。
 
 ### [miku-arm-ros2](https://github.com/p20030920p/miku-arm-ros2) —— 六轴机械臂控制
 
