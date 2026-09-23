@@ -4,7 +4,7 @@ Robotics: ROS 2, autonomous navigation, LiDAR point clouds, multi-robot coordina
 
 ## Work
 
-### RITS — training-free snow removal for spinning LiDAR
+### SVOR — training-free snow removal for spinning LiDAR
 
 ![Snow points removed frame by frame](assets/snowclear-desnow.gif)
 
@@ -38,7 +38,7 @@ virtual board — **13 checks pass with no hardware**. Simulation above, the rea
 
 ## 项目
 
-### RITS —— 旋转式 LiDAR 免训练去雪
+### SVOR —— 旋转式 LiDAR 免训练去雪
 
 ![逐帧剔除雪点](assets/snowclear-desnow.gif)
 
